@@ -28,11 +28,5 @@ class ListForm extends \CoreModule\Content\Form
 		$this->addText("itemsPerPage", "Items per page")
 		     ->addRule(self::NUMERIC, "Value must be integer");
 	}
-	
-	
-	protected function getParams()
-	{
-		return array("module" => "Blog", "presenter" => "List", "action" => "default", "url" => isset($this->entity->url) ? $this->entity->url : NULL);
-	}
 
 }

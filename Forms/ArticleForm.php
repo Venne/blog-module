@@ -28,11 +28,5 @@ class ArticleForm extends \CoreModule\Content\Form
 		$this->addContentEditor('notation', 'Notation');
 		$this->addContentEditor('text', NULL, NULL, 20);
 	}
-	
-	
-	protected function getParams()
-	{
-		return array("module" => "Blog", "presenter" => "Default", "action" => "default", "url" => isset($this->entity->url) ? $this->entity->url : NULL);
-	}
 
 }
