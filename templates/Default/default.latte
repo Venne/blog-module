@@ -1,0 +1,16 @@
+{block content}
+
+<h1>{$item->title}</h1>
+
+<ul class="item-info">
+	<li>{$item->created|date: "%d.%m.%Y"}</li>
+	<li n:foreach="$item->categories as $c">{$c->name}</li>
+</ul>
+
+<p>
+	{$item->notation}
+</p>
+
+<p>
+	{$item->text}
+</p>

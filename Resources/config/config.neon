@@ -1,0 +1,21 @@
+services:
+
+	blog.articleContent:
+		class: CoreModule\Content\ContentType('BlogModule\Entities\ArticleEntity')
+		setup:
+			- addSection('Content', @blog.articleFormFactory)
+		tags: [contentType: [name: 'blog article']]
+
+	blog.listContent:
+		class: CoreModule\Content\ContentType('BlogModule\Entities\ListEntity')
+		setup:
+			- addSection('Content', @blog.listFormFactory)
+		tags: [contentType: [name: 'blog list']]
+
+	blog.articleRepository:
+		class: BlogModule\Entities\ArticleEntity
+		tags: [repository]
+
+includes:
+	- presenters.neon
+	- components.neon
