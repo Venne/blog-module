@@ -19,7 +19,7 @@ use Venne;
  * @Table(name="blogList")
  * @DiscriminatorEntry(name="blogList")
  */
-class ListEntity extends \CoreModule\Entities\PageEntity {
+class ListEntity extends \CoreModule\Content\Entities\PageEntity {
 
 	/**
 	 * @ManyToMany(targetEntity="CategoryEntity", cascade={"all"})

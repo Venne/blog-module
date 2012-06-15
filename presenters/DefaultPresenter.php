@@ -17,7 +17,7 @@ use Venne;
  * @author Josef Kříž <pepakriz@gmail.com>
  *
  */
-class DefaultPresenter extends \CoreModule\Presenters\PagePresenter {
+class DefaultPresenter extends \CoreModule\Content\Presenters\PagePresenter {
 
 
 }

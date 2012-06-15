@@ -17,7 +17,7 @@ use Venne;
  * @author Josef Kříž <pepakriz@gmail.com>
  *
  */
-class ListPresenter extends \CoreModule\Presenters\PagePresenter {
+class ListPresenter extends \CoreModule\Content\Presenters\PagePresenter {
     
 	/**
 	 * @var \DoctrineModule\ORM\BaseRepository
