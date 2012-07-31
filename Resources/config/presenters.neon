@@ -2,4 +2,4 @@ services:
 
     blog.listPresenter:
         class: BlogModule\ListPresenter(@blog.articleRepository)
-        autowired: no
+        tags: [presenter]
