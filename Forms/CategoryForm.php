@@ -18,7 +18,7 @@ use AssetsModule\Managers\AssetManager;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class CategoryForm extends \CoreModule\Content\Form
+class CategoryForm extends \CmsModule\Content\Form
 {    
 
 	public function create()

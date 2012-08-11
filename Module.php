@@ -16,7 +16,7 @@ use Venne;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class Module extends \CoreModule\Module\Module
+class Module extends \CmsModule\Module\Module
 {
 
 

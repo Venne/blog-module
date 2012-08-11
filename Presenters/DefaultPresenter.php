@@ -9,7 +9,7 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace BlogModule;
+namespace BlogModule\Presenters;
 
 use Venne;
 
@@ -17,7 +17,7 @@ use Venne;
  * @author Josef Kříž <pepakriz@gmail.com>
  *
  */
-class DefaultPresenter extends \CoreModule\Content\Presenters\PagePresenter {
+class DefaultPresenter extends \CmsModule\Content\Presenters\PagePresenter {
 
 
 }

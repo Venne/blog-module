@@ -2,6 +2,7 @@
 	"name": "venne/blog-module",
 	"description": "Blog module",
 	"keywords": ["cms", "nette", "venne", "module"],
+	"type": "venne-module",
 	"authors": [
 		{
 			"name": "Josef Kříž",
@@ -10,11 +11,25 @@
 	],
 	"require": {
 		"php" : ">=5.3.2",
-		"venne/core-module" : "2.0.x-dev"
+		"venne/cms-module" : "2.0.x-dev"
 	},
+	"autoload": {
+		"psr-0": { "BlogModule": "" }
+	},
+	"target-dir": "BlogModule",
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.0.x-dev"
+		},
+		"venne": {
+			"installers": [
+				"DoctrineModule\\Composer\\Installers\\DoctrineInstaller"
+			],
+			"configuration": {
+				"includes": [
+					"%modules.blog.path%/Resources/config/config.neon"
+				]
+			}
 		}
 	}
 }

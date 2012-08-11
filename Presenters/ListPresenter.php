@@ -9,7 +9,7 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace BlogModule;
+namespace BlogModule\Presenters;
 
 use Venne;
 
@@ -17,7 +17,7 @@ use Venne;
  * @author Josef Kříž <pepakriz@gmail.com>
  *
  */
-class ListPresenter extends \CoreModule\Content\Presenters\PagePresenter {
+class ListPresenter extends \CmsModule\Content\Presenters\PagePresenter {
     
 	/**
 	 * @var \DoctrineModule\ORM\BaseRepository
@@ -69,7 +69,7 @@ class ListPresenter extends \CoreModule\Content\Presenters\PagePresenter {
 
 	protected function createComponentVp()
 	{
-		$vp = new \CoreModule\Components\VisualPaginator;
+		$vp = new \CmsModule\Components\VisualPaginator;
 		$pg = $vp->getPaginator();
 		$pg->setItemsPerPage($this->page->itemsPerPage);
 		$pg->setItemCount($this->getQueryBuilder()->select("COUNT(a.id)")->getQuery()->getSingleScalarResult());

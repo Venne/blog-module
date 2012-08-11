@@ -18,7 +18,7 @@ use AssetsModule\Managers\AssetManager;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class ListForm extends \CoreModule\Content\Form
+class ListForm extends \CmsModule\Content\Form
 {    
 
 	public function create()

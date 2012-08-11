@@ -3,18 +3,18 @@ factories:
 	blog.articleForm:
 		class: BlogModule\Forms\ArticleForm(@assets.assetManager, @doctrine.entityFormMapper)
 		setup:
-			- setRenderer(@core.formRenderer)
+			- setRenderer(@cms.formRenderer)
 		tags: [component]
 
 	blog.listForm:
 		class: BlogModule\Forms\ListForm(@assets.assetManager, @doctrine.entityFormMapper)
 		setup:
-			- setRenderer(@core.formRenderer)
+			- setRenderer(@cms.formRenderer)
 		tags: [component]
 
 	blog.categoryForm:
 		class: BlogModule\Forms\CategoryForm(@assets.assetManager, @doctrine.entityFormMapper)
 		setup:
-			- setRenderer(@core.formRenderer)
+			- setRenderer(@cms.formRenderer)
 		tags: [component]
 
