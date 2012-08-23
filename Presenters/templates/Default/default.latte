@@ -1,16 +1,16 @@
 {block content}
 
-<h1>{$item->title}</h1>
+<h1>{$entity->mainRoute->title}</h1>
 
 <ul class="item-info">
-	<li>{$item->created|date: "%d.%m.%Y"}</li>
-	<li n:foreach="$item->categories as $c">{$c->name}</li>
+	<li>{$entity->created|date: "%d.%m.%Y"}</li>
+	<li n:foreach="$entity->categories as $c">{$c->name}</li>
 </ul>
 
 <p>
-	{$item->notation}
+	{$entity->notation}
 </p>
 
 <p>
-	{$item->text}
+	{!$entity->text|content}
 </p>
