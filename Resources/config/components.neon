@@ -4,17 +4,20 @@ factories:
 		class: BlogModule\Forms\ArticleForm(@assets.assetManager, @doctrine.entityFormMapper)
 		setup:
 			- setRenderer(@cms.formRenderer)
+			- "$service->getElementPrototype()->class[] = ?"("ajax")
 		tags: [component]
 
 	blog.listForm:
 		class: BlogModule\Forms\ListForm(@assets.assetManager, @doctrine.entityFormMapper)
 		setup:
 			- setRenderer(@cms.formRenderer)
+			- "$service->getElementPrototype()->class[] = ?"("ajax")
 		tags: [component]
 
 	blog.categoryForm:
 		class: BlogModule\Forms\CategoryForm(@assets.assetManager, @doctrine.entityFormMapper)
 		setup:
 			- setRenderer(@cms.formRenderer)
+			- "$service->getElementPrototype()->class[] = ?"("ajax")
 		tags: [component]
 
