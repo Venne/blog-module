@@ -1,19 +1,19 @@
 services:
 
 	blog.articleFormFactory:
-		class: BlogModule\Forms\ArticleFormFactory
+		class: BlogModule\Forms\ArticleFormFactory(..., @cms.pageRepository)
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
 		tags: [component]
 
 	blog.listFormFactory:
-		class: BlogModule\Forms\ListFormFactory
+		class: BlogModule\Forms\ListFormFactory(..., @cms.pageRepository)
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
 		tags: [component]
 
 	blog.categoryFormFactory:
-		class: BlogModule\Forms\CategoryFormFactory
+		class: BlogModule\Forms\CategoryFormFactory(..., @cms.pageRepository)
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
 		tags: [component]

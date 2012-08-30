@@ -15,6 +15,7 @@ use Venne;
 use Venne\Forms\FormFactory;
 use Venne\Forms\Form;
 use DoctrineModule\Forms\Mappers\EntityMapper;
+use CmsModule\Content\Repositories\PageRepository;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
@@ -25,13 +26,17 @@ class ArticleFormFactory extends FormFactory
 	/** @var EntityMapper */
 	protected $mapper;
 
+	/** @var PageRepository */
+	protected $repository;
+
 
 	/**
 	 * @param EntityMapper $mapper
 	 */
-	public function __construct(EntityMapper $mapper)
+	public function __construct(EntityMapper $mapper, PageRepository $repository)
 	{
 		$this->mapper = $mapper;
+		$this->repository = $repository;
 	}
 
 
@@ -61,5 +66,11 @@ class ArticleFormFactory extends FormFactory
 		$form->addContentEditor('text', NULL, NULL, 20);
 
 		$form->addSubmit('_submit', 'Save');
+	}
+
+
+	public function handleSave($form)
+	{
+		$this->repository->save($form->data);
 	}
 }
