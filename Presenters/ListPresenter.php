@@ -20,11 +20,11 @@ use Venne;
 class ListPresenter extends \CmsModule\Content\Presenters\PagePresenter {
     
 	/**
-	 * @var \DoctrineModule\ORM\BaseRepository
+	 * @var \DoctrineModule\Repositories\BaseRepository
 	 */
 	private $articleRepository;
 	
-	public function __construct(\DoctrineModule\ORM\BaseRepository $articleRepository)
+	public function __construct(\DoctrineModule\Repositories\BaseRepository $articleRepository)
 	{
 		parent::__construct();
 		$this->articleRepository = $articleRepository;
