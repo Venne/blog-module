@@ -1,23 +1,20 @@
-factories:
+services:
 
-	blog.articleForm:
-		class: BlogModule\Forms\ArticleForm(@assets.assetManager, @doctrine.entityFormMapper)
+	blog.articleFormFactory:
+		class: BlogModule\Forms\ArticleFormFactory
 		setup:
-			- setRenderer(@cms.formRenderer)
-			- "$service->getElementPrototype()->class[] = ?"("ajax")
+			- injectFactory(@cms.admin.basicFormFactory)
 		tags: [component]
 
-	blog.listForm:
-		class: BlogModule\Forms\ListForm(@assets.assetManager, @doctrine.entityFormMapper)
+	blog.listFormFactory:
+		class: BlogModule\Forms\ListFormFactory
 		setup:
-			- setRenderer(@cms.formRenderer)
-			- "$service->getElementPrototype()->class[] = ?"("ajax")
+			- injectFactory(@cms.admin.basicFormFactory)
 		tags: [component]
 
-	blog.categoryForm:
-		class: BlogModule\Forms\CategoryForm(@assets.assetManager, @doctrine.entityFormMapper)
+	blog.categoryFormFactory:
+		class: BlogModule\Forms\CategoryFormFactory
 		setup:
-			- setRenderer(@cms.formRenderer)
-			- "$service->getElementPrototype()->class[] = ?"("ajax")
+			- injectFactory(@cms.admin.basicFormFactory)
 		tags: [component]
 
