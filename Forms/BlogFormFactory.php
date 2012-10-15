@@ -12,39 +12,14 @@
 namespace BlogModule\Forms;
 
 use Venne;
-use Venne\Forms\FormFactory;
 use Venne\Forms\Form;
-use DoctrineModule\Forms\Mappers\EntityMapper;
-use CmsModule\Content\Repositories\PageRepository;
+use DoctrineModule\Forms\FormFactory;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class ArticleFormFactory extends FormFactory
+class BlogFormFactory extends FormFactory
 {
-
-	/** @var EntityMapper */
-	protected $mapper;
-
-	/** @var PageRepository */
-	protected $repository;
-
-
-	/**
-	 * @param EntityMapper $mapper
-	 */
-	public function __construct(EntityMapper $mapper, PageRepository $repository)
-	{
-		$this->mapper = $mapper;
-		$this->repository = $repository;
-	}
-
-
-	protected function getMapper()
-	{
-		return $this->mapper;
-	}
-
 
 	protected function getControlExtensions()
 	{
@@ -61,16 +36,11 @@ class ArticleFormFactory extends FormFactory
 	public function configure(Form $form)
 	{
 		$form->addGroup();
-		$form->addManyToMany('categories', 'Categories');
+		$form->addText('name', 'Name');
+		$form->addManyToOne('author', 'Author');
 		$form->addContentEditor('notation', 'Notation');
 		$form->addContentEditor('text', NULL, NULL, 20);
 
-		$form->addSubmit('_submit', 'Save');
-	}
-
-
-	public function handleSave($form)
-	{
-		$this->repository->save($form->data);
+		$form->addSaveButton('Save');
 	}
 }

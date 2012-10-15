@@ -1,19 +1,14 @@
 services:
 
-	blog.articleContent:
-		class: CmsModule\Content\ContentType('BlogModule\Entities\ArticleEntity')
+	blog.blogContent:
+		class: CmsModule\Content\ContentType('BlogModule\Entities\PageEntity')
 		setup:
-			- addSection('Content', @blog.articleFormFactory)
-		tags: [contentType: [name: 'blog article']]
+			- addSection('Content', @blog.tableControlFactory)
+			- addSection('Settings', @blog.pageFormFactory)
+		tags: [contentType: [name: 'blog']]
 
-	blog.listContent:
-		class: CmsModule\Content\ContentType('BlogModule\Entities\ListEntity')
-		setup:
-			- addSection('Content', @blog.listFormFactory)
-		tags: [contentType: [name: 'blog list']]
-
-	blog.articleRepository:
-		class: BlogModule\Entities\ArticleEntity
+	blog.blogRepository:
+		class: BlogModule\Entities\BlogEntity
 		tags: [repository]
 
 includes:

@@ -1,16 +1,18 @@
 {block content}
 
-<h1>{$entity->mainRoute->title}</h1>
+<h1>Blog list</h1>
+
+{foreach $control->getItems() as $item}
+<h2><a n:href="this route=>$item->route">{$item->name}</a></h2>
 
 <ul class="item-info">
-	<li>{$entity->created|date: "%d.%m.%Y"}</li>
-	<li n:foreach="$entity->categories as $c">{$c->name}</li>
+    <li>{$item->created|date: "%d.%m.%Y"}{if $item->author} | {$item->author}{/if}</li>
 </ul>
 
 <p>
-	{$entity->notation}
+	{!$item->notation}
 </p>
 
-<p>
-	{!$entity->text|content}
-</p>
+{/foreach}
+
+{control vp}

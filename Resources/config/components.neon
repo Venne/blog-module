@@ -1,20 +1,28 @@
 services:
 
-	blog.articleFormFactory:
-		class: BlogModule\Forms\ArticleFormFactory(..., @cms.pageRepository)
+	blog.blogFormFactory:
+		class: BlogModule\Forms\BlogFormFactory
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
-		tags: [component]
 
-	blog.listFormFactory:
-		class: BlogModule\Forms\ListFormFactory(..., @cms.pageRepository)
+	blog.pageFormFactory:
+		class: BlogModule\Forms\PageFormFactory
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
-		tags: [component]
 
-	blog.categoryFormFactory:
-		class: BlogModule\Forms\CategoryFormFactory(..., @cms.pageRepository)
+	blog.elementsBlogFormFactory:
+		class: BlogModule\Elements\Forms\BlogFormFactory
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
+
+factories:
+	blog.tableControl:
+		class: BlogModule\Components\TableControl(@blog.blogRepository, ...)
 		tags: [component]
 
+	blog.blogElement:
+		class: BlogModule\Elements\BlogElement
+		setup:
+			- injectBlogRepository(@blog.blogRepository)
+			- injectSetupForm(@blog.elementsBlogFormFactory)
+		tags: [element: blog]

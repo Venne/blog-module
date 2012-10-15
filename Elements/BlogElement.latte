@@ -1,0 +1,21 @@
+{foreach $control->getItems() as $item}
+<h3><a href="{plink this route=>$item->route}">{$item->name}</a></h3>
+
+<div href="#" class="thumbnail thunbnail-left">
+    <img src="{$basePath}/resources/svobodniModule/images/icons/calendar.png" alt="avatar"/>
+</div>
+<p>
+    <small>
+		{$item->created|date: "%d.%m.%Y"}{if $item->author} | {$item->author}{/if}
+    </small>
+</p>
+
+<p>
+	{!$item->notation}
+</p>
+
+<a class="btn btn-mini pull-right" href="{plink this route=>$item->route}">View details &raquo;</a>
+</p>
+<hr/>
+
+{/foreach}
