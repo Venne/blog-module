@@ -18,7 +18,7 @@ use DoctrineModule\Forms\FormFactory;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class PageFormFactory extends FormFactory
+class ContentFormFactory extends FormFactory
 {
 
 	protected function getControlExtensions()
@@ -26,7 +26,6 @@ class PageFormFactory extends FormFactory
 		return array(
 			new \DoctrineModule\Forms\ControlExtensions\DoctrineExtension(),
 			new \CmsModule\Content\ControlExtension(),
-			new \FormsModule\ControlExtensions\ControlExtension(),
 		);
 	}
 
@@ -36,16 +35,9 @@ class PageFormFactory extends FormFactory
 	 */
 	public function configure(Form $form)
 	{
-		$form->addGroup('Settings');
-		$form->addText('itemsPerPage', 'Items per page');
-
-		$form->addGroup('Notation');
-		$form->addCheckbox('notationInHtml', 'In HTML format');
-		$form->addCheckbox('autoNotation', 'Auto generate')->addCondition($form::EQUAL, true)->toggle('notationLength');
-		$form->addGroup()->setOption('id', 'notationLength');
-		$form->addText('notationLength', 'Length')->addRule($form::INTEGER);
-
 		$form->addGroup();
+		$form->addContentEditor('text', NULL, NULL, 20);
+
 		$form->addSaveButton('Save');
 	}
 }

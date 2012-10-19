@@ -116,11 +116,29 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 
 	public function getNotation()
 	{
+		/** @var $page PageEntity */
+		$page = $this->page;
+		if ($page->getAutoNotation()) {
+			$ret = Strings::truncate(strip_tags($this->text), $page->getNotationLength());
+		} else {
+			$ret = $this->notation;
+		}
+
+		if (!$page->getNotationInHtml()) {
+			$ret = htmlspecialchars($ret);
+		}
+
+		return $ret;
+	}
+
+
+	public function getRawNotation()
+	{
 		return $this->notation;
 	}
 
 
-	public function setNotation($notation)
+	public function setRawNotation($notation)
 	{
 		$this->notation = $notation;
 	}

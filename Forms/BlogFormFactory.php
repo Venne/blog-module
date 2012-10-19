@@ -38,8 +38,14 @@ class BlogFormFactory extends FormFactory
 		$form->addGroup();
 		$form->addText('name', 'Name');
 		$form->addManyToOne('author', 'Author');
-		$form->addContentEditor('notation', 'Notation');
-		$form->addContentEditor('text', NULL, NULL, 20);
+
+		if (!$form->data->page->getAutoNotation()) {
+			if ($form->data->page->getNotationInHtml()) {
+				$form->addContentEditor('rawNotation', 'Notation');
+			} else {
+				$form->addTextArea('rawNotation', 'Notation');
+			}
+		}
 
 		$form->addSaveButton('Save');
 	}

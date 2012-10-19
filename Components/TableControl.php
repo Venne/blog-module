@@ -14,6 +14,7 @@ namespace BlogModule\Components;
 use Venne;
 use CmsModule\Content\SectionControl;
 use BlogModule\Forms\BlogFormFactory;
+use BlogModule\Forms\ContentFormFactory;
 use DoctrineModule\Repositories\BaseRepository;
 
 /**
@@ -28,13 +29,22 @@ class TableControl extends SectionControl
 	/** @var BlogFormFactory */
 	protected $formFactory;
 
+	/** @var ContentFormFactory */
+	protected $contentFormFactory;
 
-	public function __construct(BaseRepository $blogRepository, BlogFormFactory $formFactory)
+
+	/**
+	 * @param BaseRepository $blogRepository
+	 * @param BlogFormFactory $formFactory
+	 * @param ContentFormFactory $contentFormFactory
+	 */
+	public function __construct(BaseRepository $blogRepository, BlogFormFactory $formFactory, ContentFormFactory $contentFormFactory)
 	{
 		parent::__construct();
 
 		$this->blogRepository = $blogRepository;
 		$this->formFactory = $formFactory;
+		$this->contentFormFactory = $contentFormFactory;
 	}
 
 
@@ -55,16 +65,18 @@ class TableControl extends SectionControl
 		// forms
 		$repository = $this->blogRepository;
 		$entity = $this->entity;
-		$form = $table->addForm($this->formFactory, 'Create blog', function () use ($repository, $entity) {
+		$form = $table->addForm($this->formFactory, 'Options', function () use ($repository, $entity) {
 			return $repository->createNew(array($entity));
 		});
+		$contentForm = $table->addForm($this->contentFormFactory, 'Edit content');
 
 		// navbar
 		$table->addButtonCreate('create', 'Create new', $form, 'file');
 
 		$table->addColumn('name', 'Name', '50%');
 
-		$table->addActionEdit('edit', 'Edit', $form);
+		$table->addActionEdit('edit', 'Options', $form);
+		$table->addActionEdit('content', 'Content', $contentForm);
 		$table->addActionDelete('delete', 'Delete');
 
 		return $table;

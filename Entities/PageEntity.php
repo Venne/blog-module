@@ -34,12 +34,34 @@ class PageEntity extends \CmsModule\Content\Entities\PageEntity
 	 */
 	protected $itemsPerPage;
 
+	/**
+	 * @var bool
+	 * @Column(type="boolean")
+	 */
+	protected $autoNotation;
+
+	/**
+	 * @var int
+	 * @Column(type="integer")
+	 */
+	protected $notationLength;
+
+	/**
+	 * @var bool
+	 * @Column(type="boolean")
+	 */
+	protected $notationInHtml;
+
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->mainRoute->type = 'Blog:Default:default';
 		$this->itemsPerPage = 10;
+
+		$this->autoNotation = true;
+		$this->notationLength = 200;
+		$this->notationInHtml = false;
 	}
 
 
@@ -70,5 +92,59 @@ class PageEntity extends \CmsModule\Content\Entities\PageEntity
 	public function getItemsPerPage()
 	{
 		return $this->itemsPerPage;
+	}
+
+
+	/**
+	 * @param boolean $autoNotation
+	 */
+	public function setAutoNotation($autoNotation)
+	{
+		$this->autoNotation = $autoNotation;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getAutoNotation()
+	{
+		return $this->autoNotation;
+	}
+
+
+	/**
+	 * @param int $notationLength
+	 */
+	public function setNotationLength($notationLength)
+	{
+		$this->notationLength = $notationLength;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getNotationLength()
+	{
+		return $this->notationLength;
+	}
+
+
+	/**
+	 * @param boolean $notationInHtml
+	 */
+	public function setNotationInHtml($notationInHtml)
+	{
+		$this->notationInHtml = $notationInHtml;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getNotationInHtml()
+	{
+		return $this->notationInHtml;
 	}
 }

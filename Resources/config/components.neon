@@ -5,6 +5,11 @@ services:
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
 
+	blog.contentFormFactory:
+		class: BlogModule\Forms\ContentFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
 	blog.pageFormFactory:
 		class: BlogModule\Forms\PageFormFactory
 		setup:
