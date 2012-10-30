@@ -119,7 +119,8 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 		/** @var $page PageEntity */
 		$page = $this->page;
 		if ($page->getAutoNotation()) {
-			$ret = Strings::truncate(strip_tags($this->text), $page->getNotationLength());
+			$text = html_entity_decode($this->text, ENT_QUOTES, 'UTF-8');
+			$ret = Strings::truncate(strip_tags($text), $page->getNotationLength());
 		} else {
 			$ret = $this->notation;
 		}
