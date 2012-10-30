@@ -32,14 +32,11 @@ class DefaultPresenter extends \CmsModule\Content\Presenters\PagePresenter
 	}
 
 
-	public function getItems()
+	public function getItemsBuilder()
 	{
-		$query = $this->getQueryBuilder();
-		$query->setMaxResults($this->page->itemsPerPage);
-		$query->setFirstResult($this['vp']->getPaginator()->getOffset());
-		$query->orderBy('a.created', 'DESC');
-
-		return $query->getQuery()->getResult();
+		return $this->getQueryBuilder()
+			->setMaxResults($this->page->itemsPerPage)
+			->setFirstResult($this['vp']->getPaginator()->getOffset());
 	}
 
 
@@ -49,7 +46,9 @@ class DefaultPresenter extends \CmsModule\Content\Presenters\PagePresenter
 	protected function getQueryBuilder()
 	{
 		return $this->blogRepository->createQueryBuilder("a")
-			->andWhere('a.page = :page')->setParameter('page', $this->page->id);
+			->andWhere('a.page = :page')->setParameter('page', $this->page->id)
+			->andWhere('a.released <= :released')->setParameter('released', new \Nette\DateTime())
+			->andWhere('(a.expired >= :expired OR a.expired IS NULL)')->setParameter('expired', new \Nette\DateTime());
 	}
 
 

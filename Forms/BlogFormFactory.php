@@ -26,6 +26,7 @@ class BlogFormFactory extends FormFactory
 		return array(
 			new \DoctrineModule\Forms\ControlExtensions\DoctrineExtension(),
 			new \CmsModule\Content\ControlExtension(),
+			new \FormsModule\ControlExtensions\ControlExtension(),
 		);
 	}
 
@@ -39,7 +40,12 @@ class BlogFormFactory extends FormFactory
 		$form->addText('name', 'Name');
 		$form->addManyToOne('author', 'Author');
 
+		$form->addGroup('Dates');
+		$form->addDateTime('released', 'Release date');
+		$form->addDateTime('expired', 'Expiry date');
+
 		if (!$form->data->page->getAutoNotation()) {
+			$form->addGroup('Notation');
 			if ($form->data->page->getNotationInHtml()) {
 				$form->addContentEditor('rawNotation', 'Notation');
 			} else {

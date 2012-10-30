@@ -74,6 +74,12 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 	 */
 	protected $expired;
 
+	/**
+	 * @var \DateTime
+	 * @Column(type="datetime", nullable=true)
+	 */
+	protected $released;
+
 
 	/**
 	 * @param PageEntity $pageEntity
@@ -87,6 +93,7 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 		$this->text = '';
 		$this->name = '';
 		$this->created = new \Nette\DateTime();
+		$this->released = new \Nette\DateTime();
 
 		$this->route = new \CmsModule\Content\Entities\RouteEntity;
 		$this->route->setType('Blog:Blog:default');
@@ -217,6 +224,24 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 	public function getExpired()
 	{
 		return $this->expired;
+	}
+
+
+	/**
+	 * @param \DateTime $released
+	 */
+	public function setReleased($released)
+	{
+		$this->released = $released;
+	}
+
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getReleased()
+	{
+		return $this->released;
 	}
 
 
