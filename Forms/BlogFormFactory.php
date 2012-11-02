@@ -27,6 +27,7 @@ class BlogFormFactory extends FormFactory
 			new \DoctrineModule\Forms\ControlExtensions\DoctrineExtension(),
 			new \CmsModule\Content\ControlExtension(),
 			new \FormsModule\ControlExtensions\ControlExtension(),
+			new \CmsModule\Content\Forms\ControlExtensions\ControlExtension(),
 		);
 	}
 
@@ -38,6 +39,7 @@ class BlogFormFactory extends FormFactory
 	{
 		$form->addGroup();
 		$form->addText('name', 'Name');
+		$form->addFileEntityInput('photo', 'Photo');
 		$form->addManyToOne('author', 'Author');
 
 		$form->addGroup('Dates');

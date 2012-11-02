@@ -3,7 +3,13 @@
 {block content}
 
 {foreach $control->getItemsBuilder()->orderBy('a.released', 'DESC')->getQuery()->getResult() as $item}
-<h2><a n:href="this route=>$item->route">{$item->name}</a></h2>
+<h2 style="clear: left;"><a n:href="this route=>$item->route">{$item->name}</a></h2>
+
+{if $item->photo}
+<div class="thumbnail pull-left" style="margin: 0 10px 10px 0;">
+	<img n:src="$item->photo->getFileUrl(true), size=>'96x'" alt="{$item->name}" />
+</div>
+{/if}
 
 <ul class="item-info">
     <li>{$item->created|date: "%d.%m.%Y"}{if $item->author} | {$item->author}{/if}</li>

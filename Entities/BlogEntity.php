@@ -34,6 +34,12 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 	 */
 	protected $text;
 
+	/**
+	 * @var \CmsModule\Content\Entities\FileEntity
+	 * @OneToOne(targetEntity="\CmsModule\Content\Entities\FileEntity", cascade={"all"}, orphanRemoval=true)
+	 * @JoinColumn(onDelete="SET NULL")
+	 */
+	protected $photo;
 
 	/**
 	 * @var PageEntity
@@ -260,5 +266,23 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 	public function getAuthor()
 	{
 		return $this->author;
+	}
+
+
+	/**
+	 * @param \CmsModule\Content\Entities\FileEntity $photo
+	 */
+	public function setPhoto($photo)
+	{
+		$this->photo = $photo;
+	}
+
+
+	/**
+	 * @return \CmsModule\Content\Entities\FileEntity
+	 */
+	public function getPhoto()
+	{
+		return $this->photo;
 	}
 }

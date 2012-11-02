@@ -2,6 +2,12 @@
 
 {block content}
 
+{if $blog->photo}
+<div class="thumbnail pull-right" style="margin: 0  0 10px 10px;">
+    <img n:src="$blog->photo->getFileUrl(true), size=>'190x'" alt="{$blog->name}" />
+</div>
+{/if}
+
 <p class="lead">
 {!$blog->notation}
 </p>
