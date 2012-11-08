@@ -85,8 +85,14 @@ class BlogElement extends \CmsModule\Content\Elements\BaseElement
 	{
 		$dql = $this->blogRepository->createQueryBuilder("a");
 
-		if ($this->getEntity()->page) {
-			$dql = $dql->andWhere('a.page = :page')->setParameter('page', $this->getEntity()->page);
+		if (count($this->getEntity()->pages) > 0) {
+			$ids = array();
+			foreach ($this->getEntity()->pages as $page) {
+				$ids[] = $page->id;
+			}
+
+			$dql = $dql->join('a.page', 'p');
+			$dql = $dql->andWhere('p.id IN (:ids)')->setParameter('ids', $ids);
 		}
 
 		return $dql;

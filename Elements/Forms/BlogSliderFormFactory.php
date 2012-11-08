@@ -13,30 +13,27 @@ namespace BlogModule\Elements\Forms;
 
 use Venne;
 use Venne\Forms\Form;
-use DoctrineModule\Forms\FormFactory;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class BlogFormFactory extends FormFactory
+class BlogSliderFormFactory extends BlogFormFactory
 {
-
-	protected function getControlExtensions()
-	{
-		return array_merge(parent::getControlExtensions(), array(
-			new \CmsModule\Content\ControlExtension(),
-		));
-	}
-
 
 	/**
 	 * @param Form $form
 	 */
 	public function configure(Form $form)
 	{
+		$form->addGroup();
 		$form->addText('itemsPerPage', 'Items per page');
 		$form->addManyToMany('pages', 'Pages');
 
+		$form->addGroup('Dimensions');
+		$form->addText('width', 'Width')->addCondition($form::FILLED)->addRule($form::INTEGER);
+		$form->addText('height', 'Height')->addCondition($form::FILLED)->addRule($form::INTEGER);
+
+		$form->addGroup();
 		$form->addSaveButton('Save');
 	}
 }

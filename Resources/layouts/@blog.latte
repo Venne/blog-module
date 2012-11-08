@@ -1,0 +1,39 @@
+{define #blog}
+	{include #blog-items items=>$items, thumbnail=>(isset($thumbnail) ? $thumbnail : '96x')}
+{/define}
+
+
+{define #blog-items}
+{control vp}
+<ul class="media-list">
+	{foreach $items as $item}
+        {include #blog-items-item item=>$item, thumbnail=>$thumbnail}
+	{/foreach}
+</ul>
+{control vp}
+{/define}
+
+
+{define #blog-items-item}
+<li class="media">
+
+	{if $item->photo}
+        <a class="pull-left thumbnail" href="{plink this route=>$item->route}">
+            <img class="media-object" n:src="$item->photo->getFileUrl(true), size=>$thumbnail" alt="{$item->name}" />
+        </a>
+	{/if}
+
+    <div class="media-body">
+        <h4 class="media-heading"><a href="{plink this route=>$item->route}">{$item->name}</a></h4>
+
+        <p class="muted">
+            <small>{$item->created|date: "%d.%m.%Y"}{if $item->author} | {$item->author}{/if}</small>
+        </p>
+
+        <p>
+			{!$item->notation}
+        </p>
+    </div>
+
+</li>
+{/define}

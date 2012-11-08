@@ -20,6 +20,11 @@ services:
 		setup:
 			- injectFactory(@cms.admin.basicFormFactory)
 
+	blog.elementsBlogSliderFormFactory:
+		class: BlogModule\Elements\Forms\BlogSliderFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
 factories:
 	blog.tableControl:
 		class: BlogModule\Components\TableControl(@blog.blogRepository, ...)
@@ -31,3 +36,9 @@ factories:
 			- injectBlogRepository(@blog.blogRepository)
 			- injectSetupForm(@blog.elementsBlogFormFactory)
 		tags: [element: blog]
+
+	blog.blogSliderElement < blog.blogElement:
+		class: BlogModule\Elements\BlogSliderElement
+		setup:
+			- injectSetupForm(@blog.elementsBlogSliderFormFactory)
+		tags: [element: blogSlider]

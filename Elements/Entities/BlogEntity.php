@@ -20,61 +20,7 @@ use CmsModule\Content\Entities\ElementEntity;
  * @Table(name="blogElement")
  * @DiscriminatorEntry(name="blogElement")
  */
-class BlogEntity extends ElementEntity
+class BlogEntity extends BaseBlogEntity
 {
 
-	/**
-	 * @var string
-	 * @Column (type="integer")
-	 */
-	protected $itemsPerPage;
-
-	/**
-	 * @var \CmsModule\Content\Entities\RouteEntity
-	 * @ManyToOne(targetEntity="\BlogModule\Entities\PageEntity")
-	 * @JoinColumn(onDelete="CASCADE")
-	 */
-	protected $page;
-
-
-	public function __construct()
-	{
-		$this->itemsPerPage = 5;
-	}
-
-
-	/**
-	 * @param string $itemsPerPage
-	 */
-	public function setItemsPerPage($itemsPerPage)
-	{
-		$this->itemsPerPage = $itemsPerPage;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getItemsPerPage()
-	{
-		return $this->itemsPerPage;
-	}
-
-
-	/**
-	 * @param \CmsModule\Content\Entities\RouteEntity $page
-	 */
-	public function setPage($page)
-	{
-		$this->page = $page;
-	}
-
-
-	/**
-	 * @return \CmsModule\Content\Entities\RouteEntity
-	 */
-	public function getPage()
-	{
-		return $this->page;
-	}
 }
