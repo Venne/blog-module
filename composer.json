@@ -1,32 +1,33 @@
 {
-	"name": "venne/blog-module",
-	"description": "Blog module",
-	"keywords": ["cms", "nette", "venne", "module"],
-	"type": "venne-module",
-	"authors": [
+	"name":"venne/blog-module",
+	"description":"Blog module",
+	"keywords":["cms", "nette", "venne", "module"],
+	"version":"2.0.0",
+	"authors":[
 		{
-			"name": "Josef Kříž",
-			"homepage": "http://josef-kriz.cz"
+			"name":"Josef Kříž",
+			"homepage":"http://josef-kriz.cz"
 		}
 	],
-	"require": {
-		"php" : ">=5.3.2",
-		"venne/cms-module" : "2.0.x-dev"
+	"require":{
+		"php":">=5.3.2",
+		"venne/cms-module":"2.0.x-dev"
 	},
-	"autoload": {
-		"psr-0": { "BlogModule": "" }
+	"autoload":{
+		"psr-0":{
+			"BlogModule":""
+		}
 	},
-	"target-dir": "BlogModule",
-	"extra": {
-		"branch-alias": {
-			"dev-master": "2.0.x-dev"
+	"extra":{
+		"branch-alias":{
+			"dev-master":"2.0.x-dev"
 		},
-		"venne": {
-			"installers": [
+		"venne":{
+			"installers":[
 				"DoctrineModule\\Composer\\Installers\\DoctrineInstaller"
 			],
-			"configuration": {
-				"includes": [
+			"configuration":{
+				"includes":[
 					"%modules.blog.path%/Resources/config/config.neon"
 				]
 			}
