@@ -12,77 +12,78 @@
 namespace BlogModule\Entities;
 
 use Venne;
+use Doctrine\ORM\Mapping as ORM;
 use Nette\Utils\Strings;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
- * @Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
- * @Table(name="blog")
- * @HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
+ * @ORM\Table(name="blog")
+ * @ORM\HasLifecycleCallbacks
  */
 class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 {
 	/**
 	 * @var string
-	 * @Column (type="text")
+	 * @ORM\Column(type="text")
 	 */
 	protected $notation;
 
 	/**
 	 * @var string
-	 * @Column (type="text")
+	 * @ORM\Column(type="text")
 	 */
 	protected $text;
 
 	/**
 	 * @var \CmsModule\Content\Entities\FileEntity
-	 * @OneToOne(targetEntity="\CmsModule\Content\Entities\FileEntity", cascade={"all"}, orphanRemoval=true)
-	 * @JoinColumn(onDelete="SET NULL")
+	 * @ORM\OneToOne(targetEntity="\CmsModule\Content\Entities\FileEntity", cascade={"all"}, orphanRemoval=true)
+	 * @ORM\JoinColumn(onDelete="SET NULL")
 	 */
 	protected $photo;
 
 	/**
 	 * @var PageEntity
-	 * @ManyToOne(targetEntity="\BlogModule\Entities\PageEntity", inversedBy="blogs")
-	 * @JoinColumn(onDelete="CASCADE")
+	 * @ORM\ManyToOne(targetEntity="\BlogModule\Entities\PageEntity", inversedBy="blogs")
+	 * @ORM\JoinColumn(onDelete="CASCADE")
 	 */
 	protected $page;
 
 	/**
 	 * @var \CmsModule\Content\Entities\RouteEntity
-	 * @OneToOne(targetEntity="\CmsModule\Content\Entities\RouteEntity", cascade={"persist"}, orphanRemoval=true)
-	 * @JoinColumn(onDelete="CASCADE")
+	 * @ORM\OneToOne(targetEntity="\CmsModule\Content\Entities\RouteEntity", cascade={"persist"}, orphanRemoval=true)
+	 * @ORM\JoinColumn(onDelete="CASCADE")
 	 */
 	protected $route;
 
 	/**
 	 * @var \CmsModule\Security\Entities\UserEntity
-	 * @ManyToOne(targetEntity="\CmsModule\Security\Entities\UserEntity")
-	 * @JoinColumn(onDelete="CASCADE")
+	 * @ORM\ManyToOne(targetEntity="\CmsModule\Security\Entities\UserEntity")
+	 * @ORM\JoinColumn(onDelete="CASCADE")
 	 */
 	protected $author;
 
 	/**
 	 * @var \DateTime
-	 * @Column(type="datetime")
+	 * @ORM\Column(type="datetime")
 	 */
 	protected $created;
 
 	/**
 	 * @var \DateTime
-	 * @Column(type="datetime", nullable=true)
+	 * @ORM\Column(type="datetime", nullable=true)
 	 */
 	protected $updated;
 
 	/**
 	 * @var \DateTime
-	 * @Column(type="datetime", nullable=true)
+	 * @ORM\Column(type="datetime", nullable=true)
 	 */
 	protected $expired;
 
 	/**
 	 * @var \DateTime
-	 * @Column(type="datetime", nullable=true)
+	 * @ORM\Column(type="datetime", nullable=true)
 	 */
 	protected $released;
 
@@ -110,7 +111,7 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 
 
 	/**
-	 * @PreUpdate()
+	 * @ORM\PreUpdate()
 	 */
 	public function preUpdate()
 	{

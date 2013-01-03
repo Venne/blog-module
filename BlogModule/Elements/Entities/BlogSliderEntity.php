@@ -12,26 +12,27 @@
 namespace BlogModule\Elements\Entities;
 
 use Venne;
+use Doctrine\ORM\Mapping as ORM;
 use CmsModule\Content\Entities\ElementEntity;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
- * @Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
- * @Table(name="blogSliderElement")
- * @DiscriminatorEntry(name="blogSliderElement")
+ * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
+ * @ORM\Table(name="blogSliderElement")
+ * @ORM\DiscriminatorEntry(name="blogSliderElement")
  */
 class BlogSliderEntity extends BaseBlogEntity
 {
 
 	/**
 	 * @var int
-	 * @Column(type="integer")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $width;
 
 	/**
 	 * @var int
-	 * @Column(type="integer")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $height;
 

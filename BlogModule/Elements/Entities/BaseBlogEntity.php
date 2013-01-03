@@ -12,6 +12,7 @@
 namespace BlogModule\Elements\Entities;
 
 use Venne;
+use Doctrine\ORM\Mapping as ORM;
 use CmsModule\Content\Entities\ElementEntity;
 
 /**
@@ -22,16 +23,16 @@ class BaseBlogEntity extends ElementEntity
 
 	/**
 	 * @var string
-	 * @Column (type="integer")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $itemsPerPage;
 
 	/**
 	 * @var \CmsModule\Content\Entities\RouteEntity[]
-	 * @ManyToMany(targetEntity="\BlogModule\Entities\PageEntity")
-	 * @JoinTable(
-	 *       joinColumns={@JoinColumn(onDelete="CASCADE")},
-	 *       inverseJoinColumns={@JoinColumn(onDelete="CASCADE")}
+	 * @ORM\ManyToMany(targetEntity="\BlogModule\Entities\PageEntity")
+	 * @ORM\JoinTable(
+	 *       joinColumns={@ORM\JoinColumn(onDelete="CASCADE")},
+	 *       inverseJoinColumns={@ORM\JoinColumn(onDelete="CASCADE")}
 	 *       )
 	 */
 	protected $pages;

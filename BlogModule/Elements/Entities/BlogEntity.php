@@ -12,13 +12,14 @@
 namespace BlogModule\Elements\Entities;
 
 use Venne;
+use Doctrine\ORM\Mapping as ORM;
 use CmsModule\Content\Entities\ElementEntity;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
- * @Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
- * @Table(name="blogElement")
- * @DiscriminatorEntry(name="blogElement")
+ * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
+ * @ORM\Table(name="blogElement")
+ * @ORM\DiscriminatorEntry(name="blogElement")
  */
 class BlogEntity extends BaseBlogEntity
 {

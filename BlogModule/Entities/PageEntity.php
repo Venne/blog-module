@@ -12,43 +12,44 @@
 namespace BlogModule\Entities;
 
 use Venne;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
- * @Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
- * @Table(name="blogPage")
- * @DiscriminatorEntry(name="blogPage")
+ * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
+ * @ORM\Table(name="blogPage")
+ * @ORM\DiscriminatorEntry(name="blogPage")
  */
 class PageEntity extends \CmsModule\Content\Entities\PageEntity
 {
 
 	/**
 	 * @var ArrayCollection|BlogEntity[]
-	 * @OneToMany(targetEntity="BlogEntity", mappedBy="page")
+	 * @ORM\OneToMany(targetEntity="BlogEntity", mappedBy="page")
 	 */
 	protected $blogs;
 
 	/**
 	 * @var string
-	 * @Column (type="integer")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $itemsPerPage;
 
 	/**
 	 * @var bool
-	 * @Column(type="boolean")
+	 * @ORM\Column(type="boolean")
 	 */
 	protected $autoNotation;
 
 	/**
 	 * @var int
-	 * @Column(type="integer")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $notationLength;
 
 	/**
 	 * @var bool
-	 * @Column(type="boolean")
+	 * @ORM\Column(type="boolean")
 	 */
 	protected $notationInHtml;
 
