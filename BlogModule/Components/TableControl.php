@@ -29,22 +29,17 @@ class TableControl extends SectionControl
 	/** @var BlogFormFactory */
 	protected $formFactory;
 
-	/** @var ContentFormFactory */
-	protected $contentFormFactory;
-
 
 	/**
 	 * @param BaseRepository $blogRepository
 	 * @param BlogFormFactory $formFactory
-	 * @param ContentFormFactory $contentFormFactory
 	 */
-	public function __construct(BaseRepository $blogRepository, BlogFormFactory $formFactory, ContentFormFactory $contentFormFactory)
+	public function __construct(BaseRepository $blogRepository, BlogFormFactory $formFactory)
 	{
 		parent::__construct();
 
 		$this->blogRepository = $blogRepository;
 		$this->formFactory = $formFactory;
-		$this->contentFormFactory = $contentFormFactory;
 	}
 
 
@@ -65,8 +60,7 @@ class TableControl extends SectionControl
 		$entity = $this->entity;
 		$form = $table->addForm($this->formFactory, 'Options', function () use ($repository, $entity) {
 			return $repository->createNew(array($entity));
-		}, \CmsModule\Components\Table\Form::TYPE_LARGE);
-		$contentForm = $table->addForm($this->contentFormFactory, 'Edit content', NULL, \CmsModule\Components\Table\Form::TYPE_FULL);
+		}, \CmsModule\Components\Table\Form::TYPE_FULL);
 
 		// navbar
 		$table->addButtonCreate('create', 'Create new', $form, 'file');
@@ -76,8 +70,7 @@ class TableControl extends SectionControl
 			->setSortable(TRUE)
 			->setFilter();
 
-		$table->addActionEdit('edit', 'Options', $form);
-		$table->addActionEdit('content', 'Content', $contentForm);
+		$table->addActionEdit('edit', 'Edit', $form);
 		$table->addActionDelete('delete', 'Delete');
 
 		return $table;

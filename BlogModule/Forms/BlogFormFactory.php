@@ -37,23 +37,26 @@ class BlogFormFactory extends FormFactory
 	 */
 	public function configure(Form $form)
 	{
-		$form->addGroup();
+		$form->addGroup()->setOption('class', 'span6');
 		$form->addText('name', 'Name');
 		$form->addFileEntityInput('photo', 'Photo');
 		$form->addManyToOne('author', 'Author');
 
-		$form->addGroup('Dates');
+		$form->addGroup()->setOption('class', 'span6');
 		$form->addDateTime('released', 'Release date');
 		$form->addDateTime('expired', 'Expiry date');
 
 		if (!$form->data->page->getAutoNotation()) {
-			$form->addGroup('Notation');
+			$form->addGroup()->setOption('class', 'span12 pull-right');
 			if ($form->data->page->getNotationInHtml()) {
 				$form->addContentEditor('rawNotation', 'Notation');
 			} else {
-				$form->addTextArea('rawNotation', 'Notation');
+				$form->addTextArea('rawNotation', 'Notation')->getControlPrototype()->attrs['class'][] = 'span12';
 			}
 		}
+
+		$form->addGroup()->setOption('class', 'span12 pull-right');
+		$form->addContentEditor('text', NULL, NULL, 20);
 
 		$form->addSaveButton('Save');
 	}
