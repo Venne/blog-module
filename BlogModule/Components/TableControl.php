@@ -53,8 +53,6 @@ class TableControl extends SectionControl
 		$table = new \CmsModule\Components\Table\TableControl;
 		$table->setTemplateConfigurator($this->templateConfigurator);
 		$table->setRepository($this->blogRepository);
-		$table->setPaginator(10);
-		$table->enableSorter();
 
 		$pageId = $this->entity->id;
 		$table->setDql(function ($sql) use ($pageId) {
@@ -67,13 +65,16 @@ class TableControl extends SectionControl
 		$entity = $this->entity;
 		$form = $table->addForm($this->formFactory, 'Options', function () use ($repository, $entity) {
 			return $repository->createNew(array($entity));
-		});
-		$contentForm = $table->addForm($this->contentFormFactory, 'Edit content');
+		}, \CmsModule\Components\Table\Form::TYPE_LARGE);
+		$contentForm = $table->addForm($this->contentFormFactory, 'Edit content', NULL, \CmsModule\Components\Table\Form::TYPE_FULL);
 
 		// navbar
 		$table->addButtonCreate('create', 'Create new', $form, 'file');
 
-		$table->addColumn('name', 'Name', '50%');
+		$table->addColumn('name', 'Name')
+			->setWidth('100%')
+			->setSortable(TRUE)
+			->setFilter();
 
 		$table->addActionEdit('edit', 'Options', $form);
 		$table->addActionEdit('content', 'Content', $contentForm);
