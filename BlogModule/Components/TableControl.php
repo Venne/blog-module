@@ -73,6 +73,9 @@ class TableControl extends SectionControl
 		$table->addActionEdit('edit', 'Edit', $form);
 		$table->addActionDelete('delete', 'Delete');
 
+		// global actions
+		$table->setGlobalAction($table['delete']);
+
 		return $table;
 	}
 
