@@ -2,6 +2,6 @@
 
 {block content}
 
-{includeblock ../../../../Resources/layouts/@blog.latte}
+{includeblock ../../../../Resources/layouts/@page.latte}
 
-{include #blog items=>$control->getItemsBuilder()->orderBy('a.released', 'DESC')->getQuery()->getResult()}
+{include #page}

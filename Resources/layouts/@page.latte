@@ -1,0 +1,49 @@
+{define #page}
+	{include #page-items items=>$control->getItemsBuilder()->orderBy('a.released', 'DESC')->getQuery()->getResult(), thumbnail=>(isset($thumbnail) ? $thumbnail : '96x')}
+{/define}
+
+
+{define #page-items}
+	{include #page-items-head}
+
+	{foreach $items as $item}
+		{include #page-items-body item=>$item, thumbnail=>$thumbnail}
+	{/foreach}
+
+	{include #page-items-foot}
+{/define}
+
+
+{define #page-items-body}
+	<div class="media">
+
+		{if $item->photo}
+			<a class="pull-left thumbnail" href="{plink this route=>$item->route}">
+				<img class="media-object" n:src="$item->photo->getFileUrl(true), size=>$thumbnail" alt="{$item->name}" />
+			</a>
+		{/if}
+
+		<div class="media-body">
+			<h4 class="media-heading"><a href="{plink this route=>$item->route}">{$item->name}</a></h4>
+
+			<p class="muted">
+				<small>{$item->created|date: "%d.%m.%Y"}{if $item->author} | {$item->author}{/if}</small>
+			</p>
+
+			<p>
+				{!$item->notation}
+			</p>
+		</div>
+
+	</div>
+{/define}
+
+
+{define #page-items-head}
+	{control vp}
+{/define}
+
+
+{define #page-items-foot}
+	{control vp}
+{/define}
