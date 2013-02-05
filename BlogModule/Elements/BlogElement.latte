@@ -1,3 +1,7 @@
-{includeblock ../Resources/layouts/@blog.latte}
+{includeblock ../../Resources/layouts/@page.latte}
 
-{include #blog items=>$control->getItems(), thumbnail=>'64x'}
+{define #page}
+	{include #page-items items=>$control->getItems(), thumbnail=>'64x'}
+{/define}
+
+{include #page}

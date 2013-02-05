@@ -13,12 +13,12 @@ services:
 	blog.elementsBlogFormFactory:
 		class: BlogModule\Elements\Forms\BlogFormFactory
 		setup:
-			- injectFactory(@cms.admin.basicFormFactory)
+			- injectFactory(@cms.admin.ajaxFormFactory)
 
 	blog.elementsBlogSliderFormFactory:
 		class: BlogModule\Elements\Forms\BlogSliderFormFactory
 		setup:
-			- injectFactory(@cms.admin.basicFormFactory)
+			- injectFactory(@cms.admin.ajaxFormFactory)
 
 factories:
 	blog.tableControl:

@@ -1,8 +1,8 @@
-{includeblock ../Resources/layouts/@blog.latte}
+{includeblock ../../Resources/layouts/@page.latte}
 
-{define #blog}
+{define #page}
 <div id="myCarousel" class="carousel slide">
-	{include #blog-items items=>$items, thumbnail=>$thumbnail}
+	{include #page-items items=>$control->getItems(), thumbnail=>"{$width}x{$height}"}
 
     <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
     <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
@@ -10,17 +10,17 @@
 {/define}
 
 
-{define #blog-items}
+{define #page-items}
 <div class="carousel-inner">
 {foreach $items as $item}
-	<div class="{if $iterator->isFirst()}active {/if}item">{include #blog-items-item item=>$item, thumbnail=>$thumbnail}</div>
+	<div class="{if $iterator->isFirst()}active {/if}item">{include #page-items-item item=>$item, thumbnail=>$thumbnail}</div>
 {/foreach}
 </div>
 {/define}
 
 
-{define #blog-items-item}
-	<img n:src="$item->photo->getFileUrl(true), size=>$thumbnail, format=>\Nette\Image::EXACT" alt="{$item->name}" />
+{define #page-items-item}
+	<img n:if="$item->photo" n:src="$item->photo->getFileUrl(true), size=>$thumbnail, format=>\Nette\Image::EXACT" alt="{$item->name}" />
     <div class="carousel-caption">
         <h4><a href="{plink this route=>$item->route}">{$item->name}</a></h4>
         <p>{!$item->notation}</p>
@@ -28,4 +28,4 @@
 {/define}
 
 
-{include #blog items=>$control->getItems(), thumbnail=>"{$width}x{$height}"}
+{include #page}
