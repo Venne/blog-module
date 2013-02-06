@@ -276,6 +276,11 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 	public function setPhoto($photo)
 	{
 		$this->photo = $photo;
+
+		if ($this->photo) {
+			$this->photo->setParent($this->page->getDir());
+			$this->photo->setInvisible(TRUE);
+		}
 	}
 
 

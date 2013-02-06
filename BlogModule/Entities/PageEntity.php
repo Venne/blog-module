@@ -30,6 +30,12 @@ class PageEntity extends \CmsModule\Content\Entities\PageEntity
 	protected $blogs;
 
 	/**
+	 * @ORM\OneToOne(targetEntity="\CmsModule\Content\Entities\DirEntity", cascade={"all"})
+	 * @ORM\JoinColumn(onDelete="SET NULL")
+	 */
+	protected $dir;
+
+	/**
 	 * @var string
 	 * @ORM\Column(type="integer")
 	 */
@@ -60,9 +66,19 @@ class PageEntity extends \CmsModule\Content\Entities\PageEntity
 		$this->mainRoute->type = 'Blog:Default:default';
 		$this->itemsPerPage = 10;
 
-		$this->autoNotation = true;
+		$this->dir = new \CmsModule\Content\Entities\DirEntity();
+		$this->dir->setInvisible(TRUE);
+		$this->dir->setName('blogPage');
+
+		$this->autoNotation = TRUE;
 		$this->notationLength = 200;
-		$this->notationInHtml = false;
+		$this->notationInHtml = FALSE;
+	}
+
+
+	public function getDir()
+	{
+		return $this->dir;
 	}
 
 
