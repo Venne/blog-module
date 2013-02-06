@@ -27,7 +27,7 @@
 			<h4 class="media-heading"><a href="{plink this route=>$item->route}">{$item->name}</a></h4>
 
 			<p class="muted">
-				<small>{$item->created|date: "%d.%m.%Y"}{if $item->author} | {$item->author}{/if}</small>
+				<small>{if $item->author}{$item->author} | {/if}{$item->created|date: "%d.%m.%Y"}</small>
 			</p>
 
 			<p>

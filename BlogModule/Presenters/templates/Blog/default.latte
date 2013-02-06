@@ -14,3 +14,18 @@
 
 {!$blog->text}
 
+<hr />
+
+<p class="muted">
+	{if $blog->author}
+	<div class="media">
+		{if $blog->author->avatar}
+			<img class="pull-left media-object thumbnail" n:src="$blog->author->avatar->getFileUrl(true), size=>'48x'" alt="{$blog->author}" />
+		{/if}
+		<div class="media-body">
+			{if $blog->author}{$blog->author} | {/if}{$blog->created|date: "%d.%m.%Y"}
+		</div>
+	</div>
+	{/if}
+</p>
+
