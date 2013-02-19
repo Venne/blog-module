@@ -8,9 +8,11 @@
 </div>
 {/if}
 
+{if !$blog->page->getAutonotation()}
 <p class="lead">
 {!$blog->notation}
 </p>
+{/if}
 
 {!$blog->text}
 
