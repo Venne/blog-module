@@ -72,7 +72,7 @@ class BlogElement extends \CmsModule\Content\Elements\BaseElement
 		$query = $this->getQueryBuilder();
 		$query->setMaxResults($this->getEntity()->itemsPerPage);
 		$query->setFirstResult($this['vp']->getPaginator()->getOffset());
-		$query->orderBy('a.created', 'DESC');
+		$query->orderBy('a.released', 'DESC');
 
 		return $query->getQuery()->getResult();
 	}
