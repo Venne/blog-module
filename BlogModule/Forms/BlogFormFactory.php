@@ -11,6 +11,7 @@
 
 namespace BlogModule\Forms;
 
+use Nette\Utils\Html;
 use Venne;
 use Venne\Forms\Form;
 use DoctrineModule\Forms\FormFactory;
@@ -43,8 +44,8 @@ class BlogFormFactory extends FormFactory
 		$form->addManyToOne('author', 'Author');
 
 		$form->addGroup()->setOption('class', 'span6');
-		$form->addDateTime('released', 'Release date');
-		$form->addDateTime('expired', 'Expiry date');
+		$form->addDateTime('released', 'Release date')->setOption('input-append', Html::el('span', array('class' => 'icon-calendar')));
+		$form->addDateTime('expired', 'Expiry date')->setOption('input-append', Html::el('span', array('class' => 'icon-calendar')));
 
 		if (!$form->data->page->getAutoNotation()) {
 			$form->addGroup()->setOption('class', 'span12 pull-right');
