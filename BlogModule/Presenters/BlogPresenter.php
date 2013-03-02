@@ -11,8 +11,7 @@
 
 namespace BlogModule\Presenters;
 
-use Venne;
-use DoctrineModule\Repositories\BaseRepository;
+use BlogModule\Repositories\BlogRepository;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
@@ -21,14 +20,16 @@ class BlogPresenter extends \CmsModule\Content\Presenters\PagePresenter
 {
 
 	/**
-	 * @var \DoctrineModule\Repositories\BaseRepository
+	 * @var BlogRepository
 	 */
 	private $blogRepository;
 
 
-	public function __construct(BaseRepository $blogRepository)
+	/**
+	 * @param \BlogModule\Repositories\BlogRepository $blogRepository
+	 */
+	public function injectBlogRepository(BlogRepository $blogRepository)
 	{
-		parent::__construct();
 		$this->blogRepository = $blogRepository;
 	}
 

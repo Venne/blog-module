@@ -1,9 +1,9 @@
 services:
 
     blog.blogPresenter:
-        class: BlogModule\Presenters\BlogPresenter(@blog.blogRepository)
+        class: BlogModule\Presenters\BlogPresenter
         tags: [presenter]
 
     blog.defaultPresenter:
-        class: BlogModule\Presenters\DefaultPresenter(@blog.blogRepository)
+        class: BlogModule\Presenters\DefaultPresenter
         tags: [presenter]

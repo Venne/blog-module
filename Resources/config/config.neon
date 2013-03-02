@@ -8,8 +8,9 @@ services:
 		tags: [contentType: [name: 'blog']]
 
 	blog.blogRepository:
-		class: BlogModule\Entities\BlogEntity
-		tags: [repository]
+		class: BlogModule\Repositories\BlogRepository
+		factory: @entityManager::getRepository('BlogModule\Entities\BlogEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
 
 includes:
 	- presenters.neon
