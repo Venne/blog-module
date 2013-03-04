@@ -18,9 +18,8 @@ use BlogModule\Repositories\BlogRepository;
  */
 class DefaultPresenter extends \CmsModule\Content\Presenters\PagePresenter
 {
-	/**
-	 * @var BlogRepository
-	 */
+
+	/** @var BlogRepository */
 	private $blogRepository;
 
 
@@ -47,6 +46,8 @@ class DefaultPresenter extends \CmsModule\Content\Presenters\PagePresenter
 	protected function getQueryBuilder()
 	{
 		return $this->blogRepository->createQueryBuilder("a")
+			->leftJoin('a.route', 'r')
+			->andWhere('r.published = :true')->setParameter('true', TRUE)
 			->andWhere('a.page = :page')->setParameter('page', $this->page->id)
 			->andWhere('a.released <= :released')->setParameter('released', new \Nette\DateTime())
 			->andWhere('(a.expired >= :expired OR a.expired IS NULL)')->setParameter('expired', new \Nette\DateTime());

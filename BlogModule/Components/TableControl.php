@@ -70,6 +70,40 @@ class TableControl extends SectionControl
 			->setSortable(TRUE)
 			->setFilter();
 
+		$repository = $this->blogRepository;
+		$presenter = $this;
+		$action = $table->addAction('on', 'On');
+		$action->onClick[] = function ($button, $entity) use ($presenter, $repository) {
+			$entity->route->published = TRUE;
+			$repository->save($entity);
+
+			if (!$presenter->presenter->isAjax()) {
+				$presenter->redirect('this');
+			}
+
+			$presenter['table']->invalidateControl('table');
+			$presenter->presenter->payload->url = $presenter->link('this');
+		};
+		$action->onRender[] = function ($button, $entity) use ($presenter, $repository) {
+			$button->setDisabled($entity->route->published);
+		};
+
+		$action = $table->addAction('off', 'Off');
+		$action->onClick[] = function ($button, $entity) use ($presenter, $repository) {
+			$entity->route->published = FALSE;
+			$repository->save($entity);
+
+			if (!$presenter->presenter->isAjax()) {
+				$presenter->redirect('this');
+			}
+
+			$presenter['table']->invalidateControl('table');
+			$presenter->presenter->payload->url = $presenter->link('this');
+		};
+		$action->onRender[] = function ($button, $entity) use ($presenter, $repository) {
+			$button->setDisabled(!$entity->route->published);
+		};
+
 		$table->addActionEdit('edit', 'Edit', $form);
 		$table->addActionDelete('delete', 'Delete');
 

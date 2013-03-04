@@ -103,6 +103,7 @@ class BlogEntity extends \DoctrineModule\Entities\NamedEntity
 		$this->released = new \Nette\DateTime();
 
 		$this->route = new \CmsModule\Content\Entities\RouteEntity;
+		$this->route->setPublished(FALSE);
 		$this->route->setType('Blog:Blog:default');
 		$this->page->routes[] = $this->route;
 		$this->route->setPage($this->page);
