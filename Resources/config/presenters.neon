@@ -1,4 +1,4 @@
-services:
+factories:
 
     blog.blogPresenter:
         class: BlogModule\Presenters\BlogPresenter
