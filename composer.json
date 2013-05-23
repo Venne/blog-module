@@ -25,9 +25,9 @@
 		"venne": {
 			"installers": ["DoctrineModule\\Module\\Installers\\DoctrineInstaller"],
 			"configuration": {
-				"includes": [
-					"%modules.blog.path%/Resources/config/config.neon"
-				]
+				"extensions": {
+					"blog": "BlogModule\\DI\\BlogExtension"
+				}
 			}
 		}
 	}
