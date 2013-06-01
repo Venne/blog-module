@@ -11,14 +11,15 @@
 
 namespace BlogModule\Components;
 
-use Venne;
-use CmsModule\Content\SectionControl;
 use BlogModule\Forms\BlogFormFactory;
 use BlogModule\Forms\ContentFormFactory;
+use CmsModule\Administration\Components\AdminGrid\AdminGrid;
+use CmsModule\Content\SectionControl;
 use DoctrineModule\Repositories\BaseRepository;
+use Grido\DataSources\Doctrine;
 
 /**
- * @author pave
+ * @author Josef Kříž <pepakriz@gmail.com>
  */
 class TableControl extends SectionControl
 {
@@ -43,74 +44,104 @@ class TableControl extends SectionControl
 	}
 
 
+	public function handleOn($id)
+	{
+		if (!$entity = $this->blogRepository->find($id)) {
+			throw new BadRequestException;
+		}
+
+		$entity->route->published = TRUE;
+		$this->blogRepository->save($entity);
+
+		if (!$this->presenter->isAjax()) {
+			$this->redirect('this');
+		}
+
+		$this['table']->invalidateControl('table');
+		$this->presenter->payload->url = $this->link('this', array('id' => NULL));
+	}
+
+
+	public function handleOff($id)
+	{
+		if (!$entity = $this->blogRepository->find($id)) {
+			throw new BadRequestException;
+		}
+
+		$entity->route->published = FALSE;
+		$this->blogRepository->save($entity);
+
+		if (!$this->presenter->isAjax()) {
+			$this->redirect('this');
+		}
+
+		$this['table']->invalidateControl('table');
+		$this->presenter->payload->url = $this->link('this', array('id' => NULL));
+	}
+
+
 	protected function createComponentTable()
 	{
-		$table = new \CmsModule\Components\Table\TableControl;
-		$table->setTemplateConfigurator($this->templateConfigurator);
-		$table->setRepository($this->blogRepository);
+		$_this = $this;
+		$admin = new AdminGrid($this->blogRepository);
 
-		$pageId = $this->entity->id;
-		$table->setDql(function ($sql) use ($pageId) {
-			$sql = $sql->andWhere('a.page = :page')->setParameter('page', $pageId);
-			return $sql;
-		});
+		// columns
+		$table = $admin->getTable();
+		$table->setModel(new Doctrine($this->blogRepository->createQueryBuilder('a')
+				->andWhere('a.page = :page')
+				->setParameter('page', $this->entity->id)
+		));
+		$table->setTranslator($this->presenter->context->translator->translator);
+		$table->addColumn('name', 'Name')
+			->setSortable()
+			->getCellPrototype()->width = '100%';
+		$table->getColumn('name')
+			->setFilter()->setSuggestion();
 
-		// forms
+		// actions
+		$table->addAction('on', 'On')
+			->setCustomRender(function ($entity, $element) {
+				if ((bool)$entity->route->published) {
+					$element->class[] = 'disabled';
+				};
+				return $element;
+			})
+			->setCustomHref(function ($entity) use ($_this) {
+				return $_this->link('on!', array($entity->id));
+			})
+			->getElementPrototype()->class[] = 'ajax';
+		$table->addAction('off', 'Off')
+			->setCustomRender(function ($entity, $element) {
+				if (!(bool)$entity->route->published) {
+					$element->class[] = 'disabled';
+				};
+				return $element;
+			})
+			->setCustomHref(function ($entity) use ($_this) {
+				return $_this->link('off!', array($entity->id));
+			})
+			->getElementPrototype()->class[] = 'ajax';
+		$table->addAction('edit', 'Edit')
+			->getElementPrototype()->class[] = 'ajax';
+
 		$repository = $this->blogRepository;
 		$entity = $this->entity;
-		$form = $table->addForm($this->formFactory, 'Options', function () use ($repository, $entity) {
+		$form = $admin->createForm($this->formFactory, 'Blog', function () use ($repository, $entity) {
 			return $repository->createNew(array($entity));
 		}, \CmsModule\Components\Table\Form::TYPE_FULL);
 
-		// navbar
-		$table->addButtonCreate('create', 'Create new', $form, 'file');
+		$admin->connectFormWithAction($form, $table->getAction('edit'));
 
-		$table->addColumn('name', 'Name')
-			->setWidth('100%')
-			->setSortable(TRUE)
-			->setFilter();
+		// Toolbar
+		$toolbar = $admin->getNavbar();
+		$toolbar->addSection('new', 'Create', 'file');
+		$admin->connectFormWithNavbar($form, $toolbar->getSection('new'));
 
-		$repository = $this->blogRepository;
-		$presenter = $this;
-		$action = $table->addAction('on', 'On');
-		$action->onClick[] = function ($button, $entity) use ($presenter, $repository) {
-			$entity->route->published = TRUE;
-			$repository->save($entity);
+		$table->addAction('delete', 'Delete')
+			->getElementPrototype()->class[] = 'ajax';
+		$admin->connectActionAsDelete($table->getAction('delete'));
 
-			if (!$presenter->presenter->isAjax()) {
-				$presenter->redirect('this');
-			}
-
-			$presenter['table']->invalidateControl('table');
-			$presenter->presenter->payload->url = $presenter->link('this');
-		};
-		$action->onRender[] = function ($button, $entity) use ($presenter, $repository) {
-			$button->setDisabled($entity->route->published);
-		};
-
-		$action = $table->addAction('off', 'Off');
-		$action->onClick[] = function ($button, $entity) use ($presenter, $repository) {
-			$entity->route->published = FALSE;
-			$repository->save($entity);
-
-			if (!$presenter->presenter->isAjax()) {
-				$presenter->redirect('this');
-			}
-
-			$presenter['table']->invalidateControl('table');
-			$presenter->presenter->payload->url = $presenter->link('this');
-		};
-		$action->onRender[] = function ($button, $entity) use ($presenter, $repository) {
-			$button->setDisabled(!$entity->route->published);
-		};
-
-		$table->addActionEdit('edit', 'Edit', $form);
-		$table->addActionDelete('delete', 'Delete');
-
-		// global actions
-		$table->setGlobalAction($table['delete']);
-
-		return $table;
+		return $admin;
 	}
 
 
