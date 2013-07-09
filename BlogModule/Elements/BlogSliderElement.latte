@@ -22,7 +22,7 @@
 {define #page-items-item}
 	<img n:if="$item->photo" n:src="$item->photo->getFileUrl(true), size=>$thumbnail, format=>\Nette\Image::EXACT" alt="{$item->name}" />
     <div class="carousel-caption">
-        <h4><a href="{plink this route=>$item->route}">{$item->name}</a></h4>
+        <h4><a href="{plink Route route=>$item->route}">{$item->name}</a></h4>
         <p>{!$item->notation}</p>
     </div>
 {/define}

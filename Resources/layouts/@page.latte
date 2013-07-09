@@ -18,13 +18,13 @@
 	<div class="media">
 
 		{if $item->photo}
-			<a class="pull-left thumbnail" href="{plink this route=>$item->route}">
+			<a class="pull-left thumbnail" href="{plink Route route=>$item->route}">
 				<img class="media-object" n:src="$item->photo->getFileUrl(true), size=>$thumbnail" alt="{$item->name}" />
 			</a>
 		{/if}
 
 		<div class="media-body">
-			<h4 class="media-heading"><a href="{plink this route=>$item->route}">{$item->name}</a></h4>
+			<h4 class="media-heading"><a href="{plink Route route=>$item->route}">{$item->name}</a></h4>
 
 			<p class="muted">
 				<small>{if $item->author}{$item->author} | {/if}{$item->created|date: "%d.%m.%Y"}</small>
