@@ -11,7 +11,7 @@
 
 namespace BlogModule\Pages\Blog\SliderElement;
 
-use BlogModule\Pages\Blog\BlogElement\BlogEntity;
+use BlogModule\Pages\Blog\BaseElementEntity;
 use Doctrine\ORM\Mapping as ORM;
 use CmsModule\Content\Entities\ElementEntity;
 
@@ -20,7 +20,7 @@ use CmsModule\Content\Entities\ElementEntity;
  * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
  * @ORM\Table(name="blogSliderElement")
  */
-class SliderEntity extends BlogEntity
+class SliderEntity extends BaseElementEntity
 {
 
 	/**
