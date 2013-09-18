@@ -12,8 +12,8 @@
 namespace BlogModule\Pages\Blog\SliderElement;
 
 use BlogModule\Pages\Blog\BaseElementEntity;
-use Doctrine\ORM\Mapping as ORM;
 use CmsModule\Content\Entities\ElementEntity;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
@@ -27,22 +27,13 @@ class SliderEntity extends BaseElementEntity
 	 * @var int
 	 * @ORM\Column(type="integer")
 	 */
-	protected $width;
+	protected $width = 800;
 
 	/**
 	 * @var int
 	 * @ORM\Column(type="integer")
 	 */
-	protected $height;
-
-
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->width = 800;
-		$this->height = 400;
-	}
+	protected $height = 400;
 
 
 	/**

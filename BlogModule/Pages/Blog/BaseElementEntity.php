@@ -24,7 +24,7 @@ class BaseElementEntity extends ExtendedElementEntity
 	 * @var string
 	 * @ORM\Column(type="integer")
 	 */
-	protected $itemsPerPage;
+	protected $itemsPerPage = 5;
 
 	/**
 	 * @var \BlogModule\Pages\Blog\ArticleEntity[]
@@ -35,12 +35,6 @@ class BaseElementEntity extends ExtendedElementEntity
 	 *       )
 	 */
 	protected $pages;
-
-
-	public function __construct()
-	{
-		$this->itemsPerPage = 5;
-	}
 
 
 	/**

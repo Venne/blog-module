@@ -30,7 +30,7 @@ class SliderElement extends BlogElement
 
 	public function renderDefault()
 	{
-		$this->template->width = $this->getEntity()->width;
-		$this->template->height = $this->getEntity()->height;
+		$this->template->width = $this->getExtendedElement()->width;
+		$this->template->height = $this->getExtendedElement()->height;
 	}
 }

@@ -1,18 +1,28 @@
 {define #page}
-<div id="myCarousel" class="carousel slide">
+<div id="{$control->name}" class="carousel slide">
+
 	{include #page-items items=>$control->getItems(), thumbnail=>"{$width}x{$height}"}
 
-    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+	<!-- Controls -->
+	<a class="left carousel-control" href="#{$control->name}" data-slide="prev">
+		<span class="icon-prev"></span>
+	</a>
+	<a class="right carousel-control" href="#{$control->name}" data-slide="next">
+		<span class="icon-next"></span>
+	</a>
 </div>
 {/define}
 
 
 {define #page-items}
-<div class="carousel-inner">
-{foreach $items as $item}
+<!-- Indicators -->
+<ol n:inner-foreach="$items as $item" class="carousel-indicators">
+	<li data-target="#{$control->name}" data-slide-to="{$iterator->counter - 1}" n:class="$iterator->isFirst() ? active"></li>
+</ol>
+
+<!-- Wrapper for slides -->
+<div class="carousel-inner" n:inner-foreach="$items as $item">
 	<div class="{if $iterator->isFirst()}active {/if}item">{include #page-items-item item=>$item, thumbnail=>$thumbnail}</div>
-{/foreach}
 </div>
 {/define}
 

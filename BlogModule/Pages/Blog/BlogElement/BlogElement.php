@@ -70,13 +70,12 @@ class BlogElement extends BaseElement
 	{
 		$query = $this->getQueryBuilder()
 			->join('a.route', 'r')
-			->setMaxResults($this->getEntity()->itemsPerPage)
+			->setMaxResults($this->getExtendedElement()->itemsPerPage)
 			->setFirstResult($this['vp']->getPaginator()->getOffset())
 			->orderBy('r.released', 'DESC')
 			->getQuery();
 
-		$query->getResult();
-		dump($query->getSQL());die();
+		return $query->getResult();
 	}
 
 
@@ -87,9 +86,9 @@ class BlogElement extends BaseElement
 	{
 		$dql = $this->routeRepository->createQueryBuilder('a');
 
-		if (count($this->getEntity()->pages) > 0) {
+		if (count($this->getExtendedElement()->pages) > 0) {
 			$ids = array();
-			foreach ($this->getEntity()->pages as $page) {
+			foreach ($this->getExtendedElement()->pages as $page) {
 				$ids[] = $page->id;
 			}
 
@@ -105,7 +104,7 @@ class BlogElement extends BaseElement
 	{
 		$vp = new \CmsModule\Components\VisualPaginator;
 		$pg = $vp->getPaginator();
-		$pg->setItemsPerPage($this->getEntity()->itemsPerPage);
+		$pg->setItemsPerPage($this->getExtendedElement()->itemsPerPage);
 		$pg->setItemCount($this->getQueryBuilder()->select("COUNT(a.id)")->getQuery()->getSingleScalarResult());
 		return $vp;
 	}
@@ -122,7 +121,7 @@ class BlogElement extends BaseElement
 	 */
 	protected function createComponentForm()
 	{
-		$form = $this->setupFormFactory->invoke($this->getEntity());
+		$form = $this->setupFormFactory->invoke($this->getExtendedElement());
 		$form->onSuccess[] = $this->processForm;
 		return $form;
 	}
