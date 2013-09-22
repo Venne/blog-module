@@ -70,6 +70,9 @@ class BlogElement extends BaseElement
 	{
 		$query = $this->getQueryBuilder()
 			->join('a.route', 'r')
+			->andWhere('r.published = :true')->setParameter('true', TRUE)
+			->andWhere('r.released IS NULL OR r.released <= :now')
+			->andWhere('r.expired IS NULL OR r.expired > :now')->setParameter('now', new \DateTime)
 			->setMaxResults($this->getExtendedElement()->itemsPerPage)
 			->setFirstResult($this['vp']->getPaginator()->getOffset())
 			->orderBy('r.released', 'DESC')
