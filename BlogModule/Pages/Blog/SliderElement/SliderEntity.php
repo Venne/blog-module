@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
- * @ORM\Table(name="blogSliderElement")
+ * @ORM\Table(name="blog_slider_element")
  */
 class SliderEntity extends BaseElementEntity
 {

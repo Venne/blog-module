@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\BlogModule\Pages\Blog\RouteRepository")
- * @ORM\Table(name="blogArticleRoute")
+ * @ORM\Table(name="blog_article_route")
  */
 class ArticleEntity extends AbstractArticleEntity
 {

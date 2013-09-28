@@ -18,7 +18,7 @@ use CmsModule\Content\Entities\ElementEntity;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
- * @ORM\Table(name="blogElement")
+ * @ORM\Table(name="blog_element")
  */
 class BlogEntity extends BaseElementEntity
 {
