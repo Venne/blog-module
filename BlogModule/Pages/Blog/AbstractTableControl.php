@@ -50,15 +50,15 @@ abstract class AbstractTableControl extends SectionControl
 			throw new InvalidArgumentException("Method 'getFormFactory' must return formFactory.");
 		}
 
-		$adminControl = new RouteItemsControl($repository, $this->getEntity());
+		$adminControl = new RouteItemsControl($repository, $this->getExtendedPage());
 		$admin = $adminControl->getTable();
 		$table = $admin->getTable();
 		$table->setModel(new Doctrine($repository->createQueryBuilder('a')
 				->andWhere('a.extendedPage = :page')
-				->setParameter('page', $this->entity->id)
+				->setParameter('page', $this->extendedPage->id)
 		));
 
-		$entity = $this->entity;
+		$entity = $this->extendedPage;
 		$form = $admin->createForm($formFactory, '', function () use ($repository, $entity, $_this) {
 			$entity = $repository->createNew(array($entity));
 			if ($_this->presenter->user->identity instanceof UserEntity) {
