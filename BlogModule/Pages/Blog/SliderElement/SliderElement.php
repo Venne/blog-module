@@ -12,25 +12,17 @@
 namespace BlogModule\Pages\Blog\SliderElement;
 
 use BlogModule\Pages\Blog\BlogElement\BlogElement;
-use DoctrineModule\Repositories\BaseRepository;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
 class SliderElement extends BlogElement
 {
-	/**
-	 * @return string
-	 */
-	protected function getEntityName()
-	{
-		return get_class(new SliderEntity);
-	}
-
 
 	public function renderDefault()
 	{
 		$this->template->width = $this->getExtendedElement()->width;
 		$this->template->height = $this->getExtendedElement()->height;
 	}
+
 }

@@ -57,15 +57,6 @@ class BlogElement extends BaseElement
 	}
 
 
-	/**
-	 * @return string
-	 */
-	protected function getEntityName()
-	{
-		return get_class(new BlogEntity);
-	}
-
-
 	public function getItems()
 	{
 		$query = $this->getQueryBuilder()
