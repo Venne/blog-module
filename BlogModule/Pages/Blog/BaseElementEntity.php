@@ -27,8 +27,8 @@ class BaseElementEntity extends ExtendedElementEntity
 	protected $itemsPerPage = 5;
 
 	/**
-	 * @var \BlogModule\Pages\Blog\ArticleEntity[]
-	 * @ORM\ManyToMany(targetEntity="\BlogModule\Pages\Blog\ArticleEntity")
+	 * @var \BlogModule\Pages\Blog\PageEntity[]
+	 * @ORM\ManyToMany(targetEntity="\BlogModule\Pages\Blog\PageEntity")
 	 * @ORM\JoinTable(
 	 *       joinColumns={@ORM\JoinColumn(onDelete="CASCADE")},
 	 *       inverseJoinColumns={@ORM\JoinColumn(onDelete="CASCADE")}
@@ -56,7 +56,7 @@ class BaseElementEntity extends ExtendedElementEntity
 
 
 	/**
-	 * @param \CmsModule\Content\Entities\RouteEntity[] $pages
+	 * @param \CmsModule\Content\Entities\PageEntity[] $pages
 	 */
 	public function setPages($pages)
 	{
@@ -65,7 +65,7 @@ class BaseElementEntity extends ExtendedElementEntity
 
 
 	/**
-	 * @return \CmsModule\Content\Entities\RouteEntity[]
+	 * @return \CmsModule\Content\Entities\PageEntity[]
 	 */
 	public function getPages()
 	{
