@@ -96,7 +96,7 @@ class BlogElement extends BaseElement
 
 	protected function createComponentVp()
 	{
-		$vp = new \CmsModule\Components\VisualPaginator;
+		$vp = new \CmsModule\Components\PaginationControl;
 		$pg = $vp->getPaginator();
 		$pg->setItemsPerPage($this->getExtendedElement()->itemsPerPage);
 		$pg->setItemCount($this->getQueryBuilder()->select("COUNT(a.id)")->getQuery()->getSingleScalarResult());
