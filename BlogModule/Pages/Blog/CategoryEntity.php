@@ -15,10 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
- * @ORM\Entity(repositoryClass="\BlogModule\Pages\Blog\ArticleRepository")
- * @ORM\Table(name="blog_article_route")
+ * @ORM\Entity(repositoryClass="\BlogModule\Pages\Blog\CategoryRepository")
+ * @ORM\Table(name="blog_category")
  */
-class ArticleEntity extends AbstractArticleEntity
+class CategoryEntity extends AbstractCategoryEntity
 {
 
 }

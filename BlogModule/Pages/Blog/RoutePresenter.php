@@ -17,24 +17,75 @@ namespace BlogModule\Pages\Blog;
 class RoutePresenter extends AbstractRoutePresenter
 {
 
-	/** @var RouteRepository */
+	/** @var ArticleRepository */
 	private $repository;
+
+	/** @var CategoryRepository */
+	private $categoryRepository;
 
 
 	/**
-	 * @param RouteRepository $repository
+	 * @param ArticleRepository $repository
+	 * @param CategoryRepository $categoryRepository
 	 */
-	public function injectRepository(RouteRepository $repository)
+	public function inject(
+		ArticleRepository $repository,
+		CategoryRepository $categoryRepository
+	)
 	{
 		$this->repository = $repository;
+		$this->categoryRepository = $categoryRepository;
 	}
 
 
 	/**
-	 * @return UserRepository
+	 * @return ArticleRepository
 	 */
 	protected function getRepository()
 	{
 		return $this->repository;
 	}
+
+
+	/**
+	 * @return CategoryRepository
+	 */
+	public function getCategoryRepository()
+	{
+		return $this->categoryRepository;
+	}
+
+
+	/**
+	 * @return \Doctrine\ORM\QueryBuilder
+	 */
+	protected function getQueryBuilder()
+	{
+		$qb = parent::getQueryBuilder();
+
+		if ($this->extendedRoute instanceof AbstractCategoryEntity) {
+			$qb
+				->leftJoin('a.categories', 'cat')
+				->andWhere('cat.id IN (:categories)')->setParameter('categories', $this->getCategoriesRecursively($this->extendedRoute));
+		}
+
+		return $qb;
+	}
+
+
+	/**
+	 * @param AbstractCategoryEntity $category
+	 * @return array
+	 */
+	private function getCategoriesRecursively(AbstractCategoryEntity $category)
+	{
+		$ids = array($category->id);
+
+		foreach($category->children as $category) {
+			$ids = array_merge($this->getCategoriesRecursively($category), $ids);
+		}
+
+		return $ids;
+	}
+
 }

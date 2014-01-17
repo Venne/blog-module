@@ -5,7 +5,25 @@
 	'route-' . $presenter->routeId,
 	'language-' . $presenter->lang,
 ]}
-{control pagination, config => [ variant => '@blog.route' ]}
-{control itemList $control->getItemsBuilder()->orderBy('r.released', 'DESC')->getQuery()->getResult(), config => [ variant => '@blog.route' ]}
-{control pagination, config => [ variant => '@blog.route' ]}
+
+
+	<div class="row">
+		<div class="col-md-12">
+			{control item $presenter->extendedRoute, config => [ variant => '@blog.category' ]}
+		</div>
+	</div>
+
+	{var $categories = $presenter->categoryRepository->findBy(array(
+		'parent' => $presenter->extendedRoute instanceof \BlogModule\Pages\Blog\AbstractCategoryEntity ? $presenter->extendedRoute : NULL,
+		'extendedPage' => $presenter->extendedPage->id
+	))}
+
+	{if count($categories)}
+		{control itemList $categories, config => [ variant => '@blog.categories' ]}
+		<hr />
+	{/if}
+
+	{control pagination, config => [ variant => '@blog.route' ]}
+	{control itemList $control->getItemsBuilder()->orderBy('r.released', 'DESC')->getQuery()->getResult(), config => [ variant => '@blog.route' ]}
+	{control pagination, config => [ variant => '@blog.route' ]}
 {/cache}

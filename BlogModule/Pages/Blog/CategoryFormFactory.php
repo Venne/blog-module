@@ -11,26 +11,21 @@
 
 namespace BlogModule\Pages\Blog;
 
-use CmsModule\Pages\Users\UserEntity;
 use DoctrineModule\Forms\FormFactory;
 use Venne\Forms\Form;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class BlogFormFactory extends FormFactory
+class CategoryFormFactory extends FormFactory
 {
 
 	protected function getControlExtensions()
 	{
-		return array(
-			new \DoctrineModule\Forms\ControlExtensions\DoctrineExtension(),
-			new \CmsModule\Content\ControlExtension(),
-			new \FormsModule\ControlExtensions\ControlExtension(),
-			new \CmsModule\Content\Forms\ControlExtensions\ControlExtension(),
-		);
+		return array_merge(parent::getControlExtensions(), array(
+			new \CmsModule\Content\Forms\ControlExtensions\ControlExtension,
+		));
 	}
-
 
 	/**
 	 * @param Form $form
@@ -42,17 +37,19 @@ class BlogFormFactory extends FormFactory
 		$group = $form->addGroup();
 		$form->addText('name', 'Name');
 		$route->setCurrentGroup($group);
-		$route->addFileEntityInput('photo', 'Photo');
-		$route->addManyToOne('author', 'Author')->setDisabled(TRUE);
-		$form->addManyToMany('categories', 'Categories');
-		$route->addDateTime('released', 'Release date')
-			->addRule($form::FILLED);
-		$route->addDateTime('expired', 'Expiry date');
 		$route->addTextArea('notation', 'Notation');
+		$form->addManyToOne('parent', 'Parent');
+		$route->addFileEntityInput('photo', 'Photo');
 
-		$route->setCurrentGroup($form->addGroup('Content'));
-		$route->addContentEditor('text', NULL, NULL, 20);
-
+		$form->addGroup();
 		$form->addSaveButton('Save');
 	}
+
+
+	public function handleAttached(Form $form)
+	{
+		$control = $form->lookup('\\CmsModule\\Content\\SectionControl');
+		$form['parent']->setCriteria(array('extendedPage' => $control->extendedPage->id));
+	}
+
 }
