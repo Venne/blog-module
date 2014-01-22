@@ -23,6 +23,12 @@ abstract class AbstractArticleEntity extends ExtendedRouteEntity
 
 	/**
 	 * @var AbstractCategoryEntity
+	 * @ORM\ManyToOne(targetEntity="\BlogModule\Pages\Blog\CategoryEntity", cascade={"persist"})
+	 */
+	protected $category;
+
+	/**
+	 * @var AbstractCategoryEntity[]
 	 * @ORM\ManyToMany(targetEntity="\BlogModule\Pages\Blog\CategoryEntity", cascade={"persist"})
 	 */
 	protected $categories;
@@ -37,7 +43,26 @@ abstract class AbstractArticleEntity extends ExtendedRouteEntity
 
 
 	/**
-	 * @param \BlogModule\Pages\Blog\AbstractCategoryEntity $categories
+	 * @param \BlogModule\Pages\Blog\AbstractCategoryEntity $category
+	 */
+	public function setCategory(AbstractCategoryEntity $category = NULL)
+	{
+		$this->category = $category;
+		$this->route->parent = $category ? $category->route : $this->page->mainRoute;
+	}
+
+
+	/**
+	 * @return \BlogModule\Pages\Blog\AbstractCategoryEntity
+	 */
+	public function getCategory()
+	{
+		return $this->category;
+	}
+
+
+	/**
+	 * @param \BlogModule\Pages\Blog\AbstractCategoryEntity[] $categories
 	 */
 	public function setCategories($categories)
 	{
@@ -46,7 +71,7 @@ abstract class AbstractArticleEntity extends ExtendedRouteEntity
 
 
 	/**
-	 * @return \BlogModule\Pages\Blog\AbstractCategoryEntity
+	 * @return \BlogModule\Pages\Blog\AbstractCategoryEntity[]
 	 */
 	public function getCategories()
 	{

@@ -44,6 +44,7 @@ class BlogFormFactory extends FormFactory
 		$route->setCurrentGroup($group);
 		$route->addFileEntityInput('photo', 'Photo');
 		$route->addManyToOne('author', 'Author')->setDisabled(TRUE);
+		$form->addManyToOne('category', 'Main category');
 		$form->addManyToMany('categories', 'Categories');
 		$route->addDateTime('released', 'Release date')
 			->addRule($form::FILLED);
