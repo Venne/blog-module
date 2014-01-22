@@ -13,11 +13,7 @@
 		</div>
 	</div>
 
-	{var $categories = $presenter->categoryRepository->findBy(array(
-		'parent' => $presenter->extendedRoute instanceof \BlogModule\Pages\Blog\AbstractCategoryEntity ? $presenter->extendedRoute : NULL,
-		'extendedPage' => $presenter->extendedPage->id
-	))}
-
+	{var $categories = $presenter->getCategories()}
 	{if count($categories)}
 		{control itemList $categories, config => [ variant => '@blog.categories' ]}
 		<hr />
