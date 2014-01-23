@@ -23,15 +23,31 @@ abstract class AbstractArticleEntity extends ExtendedRouteEntity
 
 	/**
 	 * @var AbstractCategoryEntity
-	 * @ORM\ManyToOne(targetEntity="\BlogModule\Pages\Blog\CategoryEntity", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="::dynamic", cascade={"persist"})
 	 */
 	protected $category;
 
 	/**
 	 * @var AbstractCategoryEntity[]
-	 * @ORM\ManyToMany(targetEntity="\BlogModule\Pages\Blog\CategoryEntity", cascade={"persist"})
+	 * @ORM\ManyToMany(targetEntity="::dynamic", cascade={"persist"})
+	 * @ORM\JoinTable(
+	 *      joinColumns={@ORM\JoinColumn(name="articleentity_id", referencedColumnName="id", onDelete="CASCADE")},
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="categoryentity_id", referencedColumnName="id", onDelete="CASCADE")}
+	 *      )
 	 */
 	protected $categories;
+
+
+	public static function getCategoryName()
+	{
+		return static::getReflection()->getNamespaceName() . '\CategoryEntity';
+	}
+
+
+	public static function getCategoriesName()
+	{
+		return static::getCategoryName();
+	}
 
 
 	protected function startup()
