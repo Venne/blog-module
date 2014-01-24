@@ -37,7 +37,7 @@ factories:
 	blog.blogElement:
 		class: BlogModule\Pages\Blog\BlogElement\BlogElement
 		setup:
-			- injectRouteRepository
+			- injectArticleRepository
 			- injectSetupForm(@blog.elementsBlogFormFactory)
 		tags: [element: blog]
 
