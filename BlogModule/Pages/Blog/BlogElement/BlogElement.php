@@ -86,8 +86,20 @@ class BlogElement extends BaseElement
 				$ids[] = $page->id;
 			}
 
-			$dql = $dql->join('a.extendedPage', 'p');
-			$dql = $dql->andWhere('p.id IN (:ids)')->setParameter('ids', $ids);
+			$dql
+				->leftJoin('a.extendedPage', 'p')
+				->andWhere('p.id IN (:ids)')->setParameter('ids', $ids);
+		}
+
+		if (count($this->getExtendedElement()->categories) > 0) {
+			$ids = array();
+			foreach ($this->getExtendedElement()->categories as $category) {
+				$ids[] = $category->id;
+			}
+
+			$dql
+				->leftJoin('a.categories', 'c')
+				->andWhere('(a.category IN (:cids) OR c.id IN (:cids))')->setParameter('cids', $ids);
 		}
 
 		return $dql;
